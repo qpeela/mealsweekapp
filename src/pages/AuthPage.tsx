@@ -18,7 +18,7 @@ const Wrapper = styled.div`
     }
 `;
 
-const AuthPage = () => {
+export const AuthPage = () => {
     const navigate = useNavigate();
 
     const onSubmit = async (values: FormAuthValues) => {
@@ -60,5 +60,3 @@ const AuthPage = () => {
         </Wrapper>
     );
 };
-
-export default AuthPage;

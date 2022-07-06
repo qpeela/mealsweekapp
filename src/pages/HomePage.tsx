@@ -1,7 +1,18 @@
 import React from 'react';
 
 const HomePage = () => {
-  return <div>homepage</div>;
+  return (
+    <div>
+      homepage
+      <button
+        onClick={() => {
+          localStorage.clear();
+        }}
+      >
+        logout
+      </button>
+    </div>
+  );
 };
 
 export default HomePage;

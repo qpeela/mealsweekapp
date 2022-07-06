@@ -1,11 +1,24 @@
 import React from 'react';
-import { Field, Form } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
+import { Button, Form, Input } from 'antd';
+import styled from 'styled-components';
 
 import { FormAuthValues } from '../type/common';
 import { Api } from '../app/api';
 
 const api = new Api();
+
+const Wrapper = styled.div`
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  form {
+    width: 500px;
+  }
+`;
 
 const AuthPage = () => {
   const navigate = useNavigate();
@@ -19,40 +32,34 @@ const AuthPage = () => {
   };
 
   return (
-    <div>
+    <Wrapper>
       <Form
-        onSubmit={onSubmit}
-        render={({ handleSubmit }) => (
-          <form onSubmit={handleSubmit}>
-            <h2>Авторизация</h2>
-            <Field name={'username'}>
-              {({ input, meta }) => (
-                <div>
-                  <label>Имя пользователя</label>
-                  <input
-                    type="text"
-                    {...input}
-                    placeholder="Имя пользователя"
-                  />
-                  {meta.touched && meta.error && <span>{meta.error}</span>}
-                </div>
-              )}
-            </Field>
-            <Field name={'password'}>
-              {({ input, meta }) => (
-                <div>
-                  <label>Пароль</label>
-                  <input type="password" {...input} placeholder="Пароль" />
-                  {meta.touched && meta.error && <span>{meta.error}</span>}
-                </div>
-              )}
-            </Field>
+        onFinish={onSubmit}
+        labelCol={{ span: 8 }}
+        wrapperCol={{ span: 16 }}
+      >
+        <Form.Item
+          label={'Имя пользователя'}
+          name={'username'}
+          rules={[{ required: true, message: 'Заполните поле' }]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label={'Пароль'}
+          name={'password'}
+          rules={[{ required: true, message: 'Заполните поле' }]}
+        >
+          <Input.Password />
+        </Form.Item>
 
-            <button type="submit">Войти</button>
-          </form>
-        )}
-      />
-    </div>
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Button type="primary" htmlType="submit">
+            Отправить
+          </Button>
+        </Form.Item>
+      </Form>
+    </Wrapper>
   );
 };
 
